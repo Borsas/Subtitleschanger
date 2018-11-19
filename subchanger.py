@@ -51,7 +51,9 @@ def replace(ass):
     with open('subs.txt', 'r') as file:
         for sub in file:
             word = sub.split(':')
-            subtitles[word[0]] = word[1][:-1]
+            if '\n' in word[1]:
+                word[1] = word[1][:-1]
+            subtitles[word[0]] = word[1]
 
     file_ass = os.path.join(os.getcwd(), ass)
 
