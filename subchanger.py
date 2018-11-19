@@ -41,15 +41,16 @@ def dictionaryadd(olddict):
     return new_list
 
 
-# Change the keywords in the subtitle file
+# Change the keywords in the ass subtitle file
 def replace(ass):
     # Key is the old name, value is the new name
-    subtitles = {
-        'Golden Wind': 'Gold Experience',
-        'Reverb': 'Echoes',
-        'Shadow Sabbath': 'Black Sabbath',
-        'Zipper Man': 'Sticky Fingers'
-    }
+    subtitles = {}
+
+    with open('subs.txt', 'r') as file:
+        for sub in file:
+            word = sub.split(':')
+            subtitles[word[0]] = word[1][:-1]
+
     file_ass = os.path.join(os.getcwd(), ass)
 
     lista = dictionaryadd(subtitles)
@@ -60,11 +61,15 @@ def replace(ass):
 
 
 def main():
-    print('Subs replacer')
-    episodes = {}
+    # Checks if the file actually exists
+    if not os.path.isfile('subs.txt'):
+        print('Could not find "subs.txt", exiting')
+        time.sleep(3)
+        sys.exit()
 
-    # Just for testing
-    os.chdir('L:/Anime/JoJo/JoJo part 5/')
+    print('Subtitle replacer')
+    episodes = {}
+    num = 1
 
     # Get all .mkv files in the folder and number them
     for ep in os.listdir(os.getcwd()):
