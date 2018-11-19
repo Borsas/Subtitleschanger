@@ -3,6 +3,8 @@
 import os
 import fileinput
 import subprocess
+import sys
+import time
 from collections import OrderedDict
 
 
@@ -73,13 +75,19 @@ def main():
 
     # Get all .mkv files in the folder and number them
     for ep in os.listdir(os.getcwd()):
-        if ep.endswith('.mkv'):
-            num = ep.split()[8]
+        # Checks if the .mkv is a HorribleSubs release to make sure it orders corretly
+        if ep.endswith('.mkv') and ep.startswith('[HorribleSubs]'):
+            num = ep.split()
+            num = num[len(num) - 2]
             if num.startswith('0'):
                 num.split('0')
                 episodes[num[1]] = ep
             else:
                 episodes[num] = ep
+        else:
+            if ep.endswith('.mkv'):
+                episodes[num] = ep
+                num += 1
 
     episodes = OrderedDict(sorted(episodes.items()))
     for i in episodes:
