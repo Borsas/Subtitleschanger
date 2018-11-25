@@ -11,6 +11,4 @@ and add the words you want to change to the subs.txt in format
 `original word:new word` 
 
 # Requirements
-You need to have <a href="https://www.ffmpeg.org/">FFMPEG<a> and OrderedDict library 
-
-`pip install OrderedDict`
+You need to have <a href="https://www.ffmpeg.org/">FFMPEG<a> 
