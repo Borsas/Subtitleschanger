@@ -77,7 +77,7 @@ def main():
 
     # Get all .mkv files in the folder and number them
     for ep in os.listdir(os.getcwd()):
-        # Checks if the .mkv is a HorribleSubs release to make sure it orders corretly
+        # Checks if the .mkv is a HorribleSubs release to make sure it orders correctly
         if ep.endswith('.mkv') and ep.startswith('[HorribleSubs]'):
             num = ep.split()
             num = num[len(num) - 2]
