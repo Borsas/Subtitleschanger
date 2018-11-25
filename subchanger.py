@@ -5,7 +5,6 @@ import fileinput
 import subprocess
 import sys
 import time
-from collections import OrderedDict
 
 
 # Rip the .ass subtitles file from the .mkv using ffmpeg
@@ -54,7 +53,6 @@ def replace(ass):
             if '\n' in word[1]:
                 word[1] = word[1][:-1]
             subtitles[word[0]] = word[1]
-
     file_ass = os.path.join(os.getcwd(), ass)
 
     lista = dictionaryadd(subtitles)
@@ -91,9 +89,10 @@ def main():
                 episodes[num] = ep
                 num += 1
 
-    episodes = OrderedDict(sorted(episodes.items()))
-    for i in episodes:
-        print(i, "-", episodes[i])
+    # Lists the available episodes correctly
+    sorted_episodes = sorted(episodes.items(), key=lambda episodes: episodes[0])
+    for i in sorted_episodes:
+        print(str(i[0]), "-", str(i[1]))
     file = input('Select the file: ')
     subs(episodes[file])
 
