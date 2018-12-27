@@ -63,38 +63,19 @@ def replace(ass):
 
 
 def main():
-    # Checks if the file actually exists
+    # Checks if the subtitle file actually exists
     if not os.path.isfile('subs.txt'):
         print('Could not find "subs.txt", exiting')
         time.sleep(3)
         sys.exit()
 
-    print('Subtitle replacer')
-    episodes = {}
-    num = 1
-
-    # Get all .mkv files in the folder and number them
+    # Get all .mkv files in the folder
     for ep in os.listdir(os.getcwd()):
-        # Checks if the .mkv is a HorribleSubs release to make sure it orders correctly
-        if ep.endswith('.mkv') and ep.startswith('[HorribleSubs]'):
-            num = ep.split()
-            num = num[len(num) - 2]
-            if num.startswith('0'):
-                num.split('0')
-                episodes[num[1]] = ep
-            else:
-                episodes[num] = ep
-        else:
-            if ep.endswith('.mkv'):
-                episodes[num] = ep
-                num += 1
-
-    # Lists the available episodes correctly
-    sorted_episodes = sorted(episodes.items(), key=lambda episodes: episodes[0])
-    for i in sorted_episodes:
-        print(str(i[0]), "-", str(i[1]))
-    file = input('Select the file: ')
-    subs(episodes[file])
+        # Checks if the file is .mkv
+        if ep.endswith('.mkv'):
+            ep_ass = ep[:-4] + '.ass'
+            if not os.path.isfile(ep_ass):
+                subs(ep)
 
 
 if __name__ == '__main__':
